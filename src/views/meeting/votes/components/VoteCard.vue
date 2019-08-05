@@ -1,7 +1,7 @@
 <template>
   <div class="vote-card">
     <div class="vote-name">{{ title }}</div>
-    <img class="vote-img" src="../../../assets/headUrl.png" />
+    <img class="vote-img" src="../../../../assets/headUrl.png" />
     <div class="vote-content">
       <div class="vote-num">{{ number }}</div>
 
@@ -25,6 +25,11 @@ export default {
     }
   },
   props: ['title', 'number', 'value', 'checked'],
+  watch: {
+    checked(val) {
+      this.checkbox = val
+    }
+  },
   mounted() {
     this.checkbox = this.checked || false
   },
