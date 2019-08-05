@@ -8,9 +8,7 @@
       :open.sync="dialog"
     >
       <mu-appbar color="primary" title="请发言">
-        <mu-button slot="right" flat @click="close">
-          关闭
-        </mu-button>
+        <mu-button slot="right" flat @click="close">关闭</mu-button>
       </mu-appbar>
       <div class="meeting-input">
         <mu-text-field
@@ -71,21 +69,19 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.meeting-input {
-  .mu-input {
-    width: 100vw;
-    border-radius: 5px;
-    color: white;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
+<style>
+.meeting-input .mu-input {
+  width: 100vw;
+  border-radius: 5px;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
-  .mu-input-line {
-    display: none;
-  }
-  .actions {
-    text-align: center;
-  }
+.meeting-input .mu-input-line {
+  display: none;
+}
+.meeting-input .actions {
+  text-align: center;
 }
 </style>

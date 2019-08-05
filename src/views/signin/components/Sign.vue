@@ -17,7 +17,7 @@
     </div>
     <!-- <div class="location">
       {{ locationText }}
-    </div> -->
+    </div>-->
     <div class="action">
       <mu-button
         color="success"
@@ -78,7 +78,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style>
 .sign.user {
   margin: 0px auto;
   height: 55vh;
@@ -86,29 +86,28 @@ export default {
   flex-direction: column;
   align-items: center;
   text-align: center;
-
-  .action {
-    padding: 40px 10px;
-  }
-  .inputName {
-    margin-top: 10px !important;
-  }
-  .inputDeptName {
-    margin-bottom: 0px !important;
-  }
-  .inputDeptName .mu-input-focus-line,
-  .inputName .mu-input-focus-line {
-    display: none;
-  }
-  .foot {
-    position: absolute;
-    bottom: 64px;
-    width: 100vw;
-    text-align: center;
-  }
-  .location {
-    color: #353535;
-    font-size: 1rem;
-  }
+}
+.sign.use .action {
+  padding: 40px 10px;
+}
+.sign.use .inputName {
+  margin-top: 10px !important;
+}
+.sign.use .inputDeptName {
+  margin-bottom: 0px !important;
+}
+.sign.use .inputDeptName .mu-input-focus-line,
+.inputName .mu-input-focus-line {
+  display: none;
+}
+.sign.use .foot {
+  position: absolute;
+  bottom: 64px;
+  width: 100vw;
+  text-align: center;
+}
+.sign.use .location {
+  color: #353535;
+  font-size: 1rem;
 }
 </style>
