@@ -7,12 +7,15 @@
       <font>参与投票</font>
     </mu-appbar>
     <vote-single
+      v-if="isSingle == 1"
       :hasImg="hasImg"
       :list="list"
       v-model="emptyVote"
-      v-if="isSingle == 1"
     ></vote-single>
     <vote-multiple
+      type="action"
+      :min="minNum"
+      :max="maxNum"
       :hasImg="hasImg"
       :list="list"
       v-else
@@ -45,8 +48,8 @@ export default {
       voteState: 2, // 目前的投票状态
       isSingle: 0, // 是否是单选
       title: '投票标题1',
-      hasImg: false,
-      maxNum: 0,
+      hasImg: true,
+      maxNum: 3,
       minNum: 1,
       number: 0, // 目前投票了多少票
       emptyVote: null, // 临时选择结果
@@ -56,23 +59,20 @@ export default {
         votingResults: ''
       },
       list: [
-        {
-          option: 'qwed',
-          serialNum: 1,
-          checkbox: false
-        },
-        { option: 'sda', serialNum: 2, checkbox: false },
-        { option: 'rf', serialNum: 3, checkbox: false },
-        { option: 'sxc', serialNum: 4, checkbox: false },
-        { option: 'azv', serialNum: 5, checkbox: false },
-        { option: 'd1', serialNum: 6, checkbox: false }
+        { option: 'qwed', serialNum: 1, optionsSerialNum: 20 },
+        { option: 'sda', serialNum: 2, optionsSerialNum: 120 },
+        { option: 'rf', serialNum: 3, optionsSerialNum: 130 },
+        { option: 'sxc', serialNum: 4, optionsSerialNum: 10 },
+        { option: 'azv', serialNum: 5, optionsSerialNum: 78 },
+        { option: 'd1', serialNum: 6, optionsSerialNum: 98 }
       ]
     }
   },
   watch: {
     emptyVote(val) {
       if (val instanceof Array && this.isSingle == 0) {
-        if (val.length >= this.minNum) {
+        // 投票选项数必须在范围内
+        if (val.length >= this.minNum && val.length <= this.maxNum) {
           this.voteButtonSwitch = true
         } else {
           this.voteButtonSwitch = false

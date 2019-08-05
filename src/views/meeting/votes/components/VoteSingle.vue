@@ -7,7 +7,7 @@
           <mu-list-item-title>
             {{ item.option }}
           </mu-list-item-title>
-          <mu-list-item-action>
+          <mu-list-item-action v-if="type === 'action'">
             <mu-radio
               v-model="votingResults"
               :value="item.serialNum"
@@ -24,10 +24,11 @@
               <div class="vote-name">{{ item.option }}</div>
               <img class="vote-img" :src="item.img" />
               <div class="vote-content">
-                <div class="vote-tickets" v-show="item.number != ''">
-                  {{ item.number }}
+                <div class="vote-tickets" v-show="item.optionsSerialNum != ''">
+                  {{ item.optionsSerialNum }}
                 </div>
                 <mu-radio
+                  v-if="type === 'action'"
                   v-model="votingResults"
                   :value="item.serialNum"
                 ></mu-radio>
@@ -48,6 +49,10 @@ export default {
     }
   },
   props: {
+    type: {
+      type: String,
+      default: 'action'
+    },
     hasImg: {
       type: Boolean,
       default: false
