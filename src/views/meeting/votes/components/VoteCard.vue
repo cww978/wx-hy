@@ -4,15 +4,7 @@
     <img class="vote-img" src="../../../../assets/headUrl.png" />
     <div class="vote-content">
       <div class="vote-num">{{ number }}</div>
-
-      <mu-checkbox
-        :ripple="false"
-        v-model="checkbox"
-        color="red"
-        @change="change()"
-        uncheck-icon="favorite_border"
-        checked-icon="favorite"
-      ></mu-checkbox>
+      <mu-checkbox :ripple="false" v-model="checkbox" color="red" @change="change()" uncheck-icon="favorite_border" checked-icon="favorite"></mu-checkbox>
     </div>
   </div>
 </template>

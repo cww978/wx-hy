@@ -1,15 +1,8 @@
 <!-- 投票多选 -->
 <template>
   <div class="vote-multiple">
-    <div
-      v-if="type === 'action'"
-      :class="[voteError == false ? 'success' : 'error', 'vote-number']"
-    >
-      投票: {{ number }}/{{ max }}
-    </div>
-    <div v-else-if="type === 'show'" class="vote-number">
-      总票数: {{ allTicket }}
-    </div>
+    <div v-if="type === 'action'" :class="[voteError == false ? 'success' : 'error', 'vote-number']">投票: {{ number }}/{{ max }}</div>
+    <div v-else-if="type === 'show'" class="vote-number">总票数: {{ allTicket }}</div>
     <mu-list v-if="!hasImg" style="background-color: #f9edde;padding: 0px;">
       <template v-for="(item, index) in list">
         <mu-list-item :key="index" style="border-bottom: 1px #fff solid;">
@@ -17,16 +10,9 @@
             {{ item.option }}
           </mu-list-item-title>
           <mu-list-item-action v-if="type === 'action'">
-            <mu-checkbox
-              :value="item.serialNum"
-              v-model="votingResults"
-            ></mu-checkbox>
+            <mu-checkbox :value="item.serialNum" v-model="votingResults"></mu-checkbox>
           </mu-list-item-action>
-          <div
-            class="chart-line"
-            :style="`width:${(item.optionsSerialNum * 100) / allTicket}%`"
-            v-else-if="type === 'show'"
-          ></div>
+          <div class="chart-line" :style="`width:${(item.optionsSerialNum * 100) / allTicket}%`" v-else-if="type === 'show'"></div>
           <mu-list-item-action v-if="type === 'show'">
             {{ item.optionsSerialNum }}
           </mu-list-item-action>
@@ -44,12 +30,7 @@
                 <div class="vote-tickets" v-show="item.optionsSerialNum != ''">
                   {{ item.optionsSerialNum }}
                 </div>
-                <mu-checkbox
-                  v-if="type === 'action'"
-                  :value="item.serialNum"
-                  :ripple="false"
-                  v-model="votingResults"
-                ></mu-checkbox>
+                <mu-checkbox v-if="type === 'action'" :value="item.serialNum" :ripple="false" v-model="votingResults"></mu-checkbox>
               </div>
             </div>
           </mu-col>
@@ -108,10 +89,7 @@ export default {
       return this.votingResults.length
     },
     voteError() {
-      if (
-        this.votingResults.length >= this.min &&
-        this.votingResults.length <= this.max
-      ) {
+      if (this.votingResults.length >= this.min && this.votingResults.length <= this.max) {
         return false
       } else {
         return true

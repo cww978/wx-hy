@@ -1,58 +1,20 @@
 <template>
   <div class="speakes">
-    <speaker title="cww" text="的撒接地极睡大觉叫 " line="2018"></speaker>
-    <speaker
-      title="cww"
-      text="你好sajdiosajdoiasjdiasoudiodsadsadasdasdasdsadsaduioausdiojadioj"
-      line="2018"
-    ></speaker>
-    <speaker
-      title="cww"
-      text="你好sajdiosajdoiasjdiasoudiodsadsadasdasdasdsadsaduioausdiojadioj"
-      line="2018"
-    ></speaker>
-    <speaker
-      title="cww"
-      text="你好sajdiosajdoiasjdiasoudiodsadsadasdasdasdsadsaduioausdiojadioj"
-      line="2018"
-    ></speaker>
-    <speaker
-      title="cww"
-      text="你好sajdiosajdoiasjdiasoudiodsadsadasdasdasdsadsaduioausdiojadioj"
-      line="2018"
-    ></speaker>
-    <speaker
-      title="cww"
-      text="你好sajdiosajdoiasjdiasoudiodsadsadasdasdasdsadsaduioausdiojadioj"
-      line="2018"
-    ></speaker>
-    <speaker
-      title="cww"
-      text="你好sajdiosajdoiasjdiasoudiodsadsadasdasdasdsadsaduioausdiojadioj"
-      line="2018"
-    ></speaker>
-    <speaker
-      title="cww"
-      text="你好sajdiosajdoiasjdiasoudiodsadsadasdasdasdsadsaduioausdiojadioj"
-      line="2018"
-    ></speaker>
-    <speaker
-      title="cww"
-      text="你好sajdiosajdoiasjdiasoudiodsadsadasdasdasdsadsaduioausdiojadioj"
-      line="2018"
-    ></speaker>
-    <speaker
-      title="cww"
-      text="你好sajdiosajdoiasjdiasoudiodsadsadasdasdasdsadsaduioausdiojadioj"
-      line="2018"
-    ></speaker>
+    <template v-for="item in list">
+      <speaker :key="item" :avatar="item.avatar" :title="item.title" :text="item.text" :line="item.time"></speaker>
+    </template>
   </div>
 </template>
 <script>
 import Speaker from './Speaker'
 export default {
   name: 'SpeakeList',
-  components: { Speaker }
+  components: { Speaker },
+  computed: {
+    list() {
+      return this.$store.getters['speak/speakList']
+    }
+  }
 }
 </script>
 <style scoped>

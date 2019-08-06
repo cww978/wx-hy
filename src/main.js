@@ -10,6 +10,7 @@ import 'muse-ui-loading/dist/muse-ui-loading.css'
 import Loading from 'muse-ui-loading'
 import Message from 'muse-ui-message'
 import 'muse-ui-message/dist/muse-ui-message.css'
+import './permission' // permission control
 
 Vue.config.productionTip = false
 Vue.use(MuseUI)

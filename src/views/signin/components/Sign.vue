@@ -4,27 +4,14 @@
       <img src="@/assets/headUrl.png" />
     </mu-avatar>
     <div>
-      <mu-text-field
-        class="inputName"
-        v-model="params.name"
-        placeholder="姓名"
-      ></mu-text-field>
-      <mu-text-field
-        class="inputDeptName"
-        v-model="params.deptName"
-        placeholder="部门"
-      ></mu-text-field>
+      <mu-text-field class="inputName" v-model="name" placeholder="姓名"></mu-text-field>
+      <mu-text-field class="inputDeptName" v-model="deptName" placeholder="部门"></mu-text-field>
     </div>
     <!-- <div class="location">
       {{ locationText }}
     </div>-->
     <div class="action">
-      <mu-button
-        color="success"
-        style="min-width: 120px"
-        @click="signin"
-        :disabled="!signButton"
-      >
+      <mu-button color="success" style="min-width: 120px" @click="signin" :disabled="!signButton">
         签到
       </mu-button>
     </div>
@@ -36,7 +23,9 @@ export default {
   name: 'Signin',
   data() {
     return {
-      signButton: true,
+      signButton: false,
+      name: '',
+      deptName: '',
       params: {
         // 会议Id扫码获取
         meetingId: '',
@@ -50,6 +39,22 @@ export default {
         deptName: ''
       },
       locationText: '当前无位置信息'
+    }
+  },
+  watch: {
+    name(val) {
+      if (val == '' || this.deptName == '') {
+        this.signButton = false
+      } else {
+        this.signButton = true
+      }
+    },
+    deptName(val) {
+      if (val == '' || this.name == '') {
+        this.signButton = false
+      } else {
+        this.signButton = true
+      }
     }
   },
   computed: {
@@ -68,12 +73,19 @@ export default {
   },
   methods: {
     signin() {
-      this.signButton = false
-      // 设置签到信息
-      this.$store.dispatch('user/setSigninInfo', this.params)
-      // 签到
-      this.signButton = true
-      this.$store.dispatch('user/signin')
+      // 判断是否填写签到信息
+      if (this.name == '' || this.deptName == '') {
+        this.$alert('签到信息不能为空', '提示', {
+          okLabel: '知道了'
+        })
+      } else {
+        this.params.name = this.name
+        this.params.deptName = this.deptName
+        this.$store.dispatch('user/signin', this.params).then(() => {
+          this.name = ''
+          this.deptName = ''
+        })
+      }
     }
   }
 }
@@ -96,7 +108,7 @@ export default {
 .sign.use .inputDeptName {
   margin-bottom: 0px !important;
 }
-.sign.use .inputDeptName .mu-input-focus-line,
+.inputDeptName .mu-input-focus-line,
 .inputName .mu-input-focus-line {
   display: none;
 }

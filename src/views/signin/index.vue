@@ -1,8 +1,6 @@
 <template>
   <div class="main">
-    <transition mode="out-in">
-      <component :is="view"></component>
-    </transition>
+    <component :is="view"></component>
   </div>
 </template>
 <script>
@@ -28,13 +26,17 @@ export default {
   computed: {
     isSignin() {
       return this.$store.getters['user/signin']
+    },
+    meetingId() {
+      return this.$store.getters['meeting/meetingId']
     }
   },
   mounted() {
     // 获取用户信息
+    this.$store.dispatch('meeting/setMeetingInfo', { meetingId: this.$route.query.meetingId })
     this.$store.dispatch('user/getUserInfo').then(() => {
-      // 获取签到信息
-      this.$store.dispatch('user/getSignin')
+      // 刷新签到信息
+      this.$store.dispatch('user/updateSigninInfo', this.meetingId)
     })
   }
 }

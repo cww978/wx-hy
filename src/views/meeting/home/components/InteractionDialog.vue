@@ -1,28 +1,12 @@
 <template>
-  <mu-dialog
-    dialog-class="interaction-dialog"
-    scrollable
-    width="360"
-    :open.sync="dialog"
-    @close="close"
-  >
+  <mu-dialog dialog-class="interaction-dialog" scrollable width="360" :open.sync="dialog" @close="close">
     <mu-sub-header>互动</mu-sub-header>
     <mu-row>
-      <template v-for="(item, index) in analysis">
+      <template v-for="(item, index) in list">
         <mu-col v-if="item.show" span="4" :key="index">
           <mu-ripple @click="navTo(item.path)"></mu-ripple>
-          <mu-flex
-            :z-depth="1"
-            class="menu-cell"
-            direction="column"
-            align-items="center"
-          >
-            <mu-icon
-              class="menu-icon"
-              :color="item.iconColor"
-              :value="item.icon"
-              size="30"
-            ></mu-icon>
+          <mu-flex :z-depth="1" class="menu-cell" direction="column" align-items="center">
+            <mu-icon class="menu-icon" :color="item.iconColor" :value="item.icon" size="30"></mu-icon>
             <div class="menu-title">{{ item.title }}</div>
           </mu-flex>
         </mu-col>
@@ -36,7 +20,7 @@ export default {
   data() {
     return {
       dialog: false,
-      analysis: [
+      list: [
         {
           icon: 'thumb_up_alt',
           iconColor: 'blue',
@@ -44,6 +28,14 @@ export default {
           name: 'Votes',
           show: true,
           path: '/meeting/votes'
+        },
+        {
+          icon: 'location_on',
+          iconColor: 'orange',
+          title: '签到',
+          name: 'SignLocation',
+          show: true,
+          path: '/meeting/signLocation'
         }
       ]
     }

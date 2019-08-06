@@ -9,12 +9,7 @@
     <!-- 投票列表 -->
     <mu-list class="vote-list">
       <template v-for="(item, index) in list">
-        <mu-list-item
-          :key="index"
-          button
-          :ripple="true"
-          @click="navTo(item.id)"
-        >
+        <mu-list-item :key="index" button :ripple="true" @click="navTo(item.id)">
           <mu-list-item-content>
             <mu-list-item-title>{{ item.title }}</mu-list-item-title>
           </mu-list-item-content>
@@ -31,17 +26,24 @@
   </div>
 </template>
 <script>
+import { getActVoteList } from '@/api/meeting'
 export default {
   name: 'Votes',
   data() {
     return {
-      list: [
-        { title: '投票1', id: 100, type: 1 },
-        { title: '投票2', id: 100, type: 0 }
-      ]
+      list: []
     }
   },
-  mounted() {},
+  computed: {
+    meetingId() {
+      return this.$store.getters['meeting/meetingId']
+    }
+  },
+  mounted() {
+    getActVoteList({ meetingId: this.meetingId }).then(res => {
+      this.list = res.data
+    })
+  },
   methods: {
     back() {
       this.$router.go(-1)

@@ -6,30 +6,16 @@
       </mu-button>
       <font>参与投票</font>
     </mu-appbar>
-    <vote-single
-      v-if="isSingle == 1"
-      :hasImg="hasImg"
-      :list="list"
-      v-model="emptyVote"
-    ></vote-single>
-    <vote-multiple
-      type="action"
-      :min="minNum"
-      :max="maxNum"
-      :hasImg="hasImg"
-      :list="list"
-      v-else
-      v-model="emptyVote"
-    ></vote-multiple>
+    <div class="vote-header">
+      <span class="vote-title">{{ title }}</span>
+    </div>
+    <vote-single v-if="isSingle == 1" :hasImg="hasImg" :list="list" v-model="emptyVote"></vote-single>
+    <vote-multiple type="show" :min="minNum" :max="maxNum" :hasImg="hasImg" :list="list" v-else v-model="emptyVote"></vote-multiple>
     <div class="footer">
       <mu-button v-if="voteState == 1" color="success" disabled>
         已投票
       </mu-button>
-      <mu-button
-        v-else-if="voteState == 2"
-        :disabled="!voteButtonSwitch"
-        color="success"
-      >
+      <mu-button v-else-if="voteState == 2" :disabled="!voteButtonSwitch" @click="sendVote" color="success">
         确定投票
       </mu-button>
       <mu-button v-else color="success" disabled>投票结束</mu-button>
@@ -39,6 +25,7 @@
 <script>
 import VoteMultiple from './components/VoteMultiple'
 import VoteSingle from './components/VoteSingle'
+import { getActVoteDetail, sendVote } from '@/api/meeting'
 export default {
   name: 'VoteDetail',
   components: { VoteSingle, VoteMultiple },
@@ -47,25 +34,22 @@ export default {
       voteButtonSwitch: false,
       voteState: 2, // 目前的投票状态
       isSingle: 0, // 是否是单选
-      title: '投票标题1',
-      hasImg: true,
+      title: '',
+      hasImg: false,
       maxNum: 3,
       minNum: 1,
-      number: 0, // 目前投票了多少票
       emptyVote: null, // 临时选择结果
       params: {
         meetingId: '',
         voteId: '',
         votingResults: ''
       },
-      list: [
-        { option: 'qwed', serialNum: 1, optionsSerialNum: 20 },
-        { option: 'sda', serialNum: 2, optionsSerialNum: 120 },
-        { option: 'rf', serialNum: 3, optionsSerialNum: 130 },
-        { option: 'sxc', serialNum: 4, optionsSerialNum: 10 },
-        { option: 'azv', serialNum: 5, optionsSerialNum: 78 },
-        { option: 'd1', serialNum: 6, optionsSerialNum: 98 }
-      ]
+      list: []
+    }
+  },
+  computed: {
+    meetingId() {
+      return this.$store.getters['meeting/meetingId']
     }
   },
   watch: {
@@ -86,14 +70,26 @@ export default {
       }
     }
   },
+  mounted() {
+    this.params.voteId = this.$route.qurey.id
+    this.params.meetingId = this.meetingId
+    // 获取投票详情
+    getActVoteDetail({ id: this.$route.qurey.id }).then(res => {
+      this.minNum = res.data.minNum
+      this.maxNum = res.data.maxNum
+      this.isSingle = res.data.ifSingle
+      this.title = res.data.title
+      this.list = res.data.options
+    })
+  },
   methods: {
-    getVotedNumber() {
-      let num = this.votedList.length
-      return num
-    },
-    // 获取投票
-    getVotedString() {
-      return this.votedList.join(',')
+    // 投票
+    sendVote() {
+      sendVote(this.params).then(res => {
+        if (res.data) {
+          this.voteState = 1
+        }
+      })
     },
     back() {
       this.$router.go(-1)
@@ -102,6 +98,12 @@ export default {
 }
 </script>
 <style scoped>
+.vote-header {
+  padding: 5px 10px;
+}
+.vote-header .vote-title {
+  font-size: 0.85rem;
+}
 .footer {
   height: 50px;
   display: flex;

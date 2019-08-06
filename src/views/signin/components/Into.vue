@@ -5,12 +5,7 @@
       <img src="@/assets/headUrl.png" />
     </mu-avatar>
     <div class="action">
-      <mu-button
-        color="primary"
-        style="min-width: 120px"
-        @click="into"
-        :disabled="!intoButton"
-      >
+      <mu-button color="primary" style="min-width: 120px" @click="into" :disabled="!intoButton">
         进入会议
       </mu-button>
     </div>

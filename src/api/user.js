@@ -1,12 +1,10 @@
 import request from '@/utils/request'
-export default {
-  /**
-   * 获取用户信息
-   */
-  userInfo() {
-    return request({
-      url: '/weixin/user/userInfo',
-      method: 'get'
-    })
-  }
+/**
+ * 获取用户信息
+ */
+export function userInfo() {
+  return request({
+    url: '/weixin/user/userInfo',
+    method: 'get'
+  })
 }

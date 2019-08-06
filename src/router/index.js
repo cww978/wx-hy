@@ -17,6 +17,11 @@ export default new Router({
       children: []
     },
     {
+      path: '/error',
+      name: 'Error',
+      component: () => import('@/views/error/error')
+    },
+    {
       path: '/meeting',
       component: Layout,
       redirect: '/meeting/home',
@@ -25,6 +30,16 @@ export default new Router({
           path: '/meeting/home',
           name: 'Home',
           component: () => import('@/views/meeting/home')
+        },
+        {
+          path: '/meeting/topic',
+          name: 'Topic',
+          component: () => import('@/views/meeting/topic')
+        },
+        {
+          path: '/meeting/signLocation',
+          name: 'SignLocation',
+          component: () => import('@/views/meeting/signLocation')
         },
         {
           path: '/meeting/votes',
@@ -37,6 +52,7 @@ export default new Router({
           component: () => import('@/views/meeting/votes/detail.vue')
         }
       ]
-    }
+    },
+    { path: '*', component: () => import('@/views/error/error') }
   ]
 })

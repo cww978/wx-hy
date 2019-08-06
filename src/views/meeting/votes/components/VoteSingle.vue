@@ -8,10 +8,7 @@
             {{ item.option }}
           </mu-list-item-title>
           <mu-list-item-action v-if="type === 'action'">
-            <mu-radio
-              v-model="votingResults"
-              :value="item.serialNum"
-            ></mu-radio>
+            <mu-radio v-model="votingResults" :value="item.serialNum"></mu-radio>
           </mu-list-item-action>
         </mu-list-item>
       </template>
@@ -27,11 +24,7 @@
                 <div class="vote-tickets" v-show="item.optionsSerialNum != ''">
                   {{ item.optionsSerialNum }}
                 </div>
-                <mu-radio
-                  v-if="type === 'action'"
-                  v-model="votingResults"
-                  :value="item.serialNum"
-                ></mu-radio>
+                <mu-radio v-if="type === 'action'" v-model="votingResults" :value="item.serialNum"></mu-radio>
               </div>
             </div>
           </mu-col>
@@ -92,7 +85,7 @@ export default {
 }
 .vote-content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   padding: 5px 10px;
   align-items: center;
